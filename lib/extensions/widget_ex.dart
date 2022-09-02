@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'bool_ex.dart';
 
 extension WidgetEx on Widget {
-  Widget onClick(void Function() click) => GestureDetector(
+  Widget onClick(
+          {required void Function() click,
+          void Function()? willClick,
+          void Function()? didClick}) =>
+      GestureDetector(
         child: this,
         behavior: HitTestBehavior.opaque,
-        onTap: click,
+        onTap: () {
+          willClick?.call();
+          click.call();
+          didClick?.call();
+        },
       );
   Widget toCenter() => Center(
         child: this,
