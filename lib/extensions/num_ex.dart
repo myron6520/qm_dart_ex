@@ -8,12 +8,6 @@ extension NumEx on num {
         height: toDouble(),
       );
   Color get color => Color(toInt());
-
-  double get w =>
-      this *
-      MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width /
-      375;
-  double get sp => w;
 }
 
 extension DoubleEx on double {
