@@ -13,7 +13,7 @@ extension NumEx on num {
 extension DoubleEx on double {
   String awesome([int fractionDigits = 2]) {
     String s = toStringAsFixed(fractionDigits);
-    while (s.endsWith("0")) {
+    while (s.endsWith("0") && s.contains(".")) {
       s = s.substring(0, s.length - 1);
     }
     if (s.endsWith(".")) s = s.substring(0, s.length - 1);
