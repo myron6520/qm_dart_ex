@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class ChangeNotifierWidget extends StatefulWidget {
   final ChangeNotifier changeNotifier;
   final Widget Function() builder;
+  final Future<void> Function()? onChanged;
   const ChangeNotifierWidget(
-      {super.key, required this.changeNotifier, required this.builder});
+      {super.key,
+      required this.changeNotifier,
+      required this.builder,
+      this.onChanged});
 
   @override
   State<ChangeNotifierWidget> createState() => _ChangeNotifierWidgetState();
@@ -19,7 +23,13 @@ class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget> {
     widget.changeNotifier.addListener(_update);
   }
 
-  void _update() => setState(() {});
+  void _update() async {
+    if (widget.onChanged != null) {
+      await widget.onChanged!.call();
+    }
+    setState(() {});
+  }
+
   @override
   void dispose() {
     widget.changeNotifier.removeListener(_update);
@@ -28,11 +38,17 @@ class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget> {
 }
 
 extension ChangeNotifierEx on ChangeNotifier {
-  Widget toWidget(Widget Function() builder) =>
-      ChangeNotifierWidget(builder: builder, changeNotifier: this);
+  Widget toWidget(Widget Function() builder,
+          {Future<void> Function()? onChanged}) =>
+      ChangeNotifierWidget(
+        builder: builder,
+        changeNotifier: this,
+        onChanged: onChanged,
+      );
 }
 
 extension WidgetExApplyChangeNotifier on Widget {
-  Widget applyChangeNotifier(ChangeNotifier changeNotifier) =>
-      changeNotifier.toWidget(() => this);
+  Widget applyChangeNotifier(ChangeNotifier changeNotifier,
+          {Future<void> Function()? onChanged}) =>
+      changeNotifier.toWidget(() => this, onChanged: onChanged);
 }

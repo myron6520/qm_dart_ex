@@ -7,3 +7,4 @@ export 'package:qm_dart_ex/extensions/color_ex.dart';
 export 'package:qm_dart_ex/extensions/string_ex.dart';
 export 'package:qm_dart_ex/extensions/bool_ex.dart';
 export 'package:qm_dart_ex/extensions/font_weight_ex.dart';
+export 'package:qm_dart_ex/extensions/change_notifier_ex.dart';
