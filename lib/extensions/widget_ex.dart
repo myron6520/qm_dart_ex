@@ -7,13 +7,25 @@ extension WidgetEx on Widget {
           void Function()? willClick,
           void Function()? didClick}) =>
       GestureDetector(
-        child: this,
         behavior: HitTestBehavior.opaque,
         onTap: () {
           willClick?.call();
           click.call();
           didClick?.call();
         },
+        child: this,
+      );
+  Widget onTouch({
+    void Function()? onTap,
+    void Function()? onDoubleTap,
+    void Function()? onLongPress,
+  }) =>
+      GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        onLongPress: onLongPress,
+        onDoubleTap: onDoubleTap,
+        child: this,
       );
   Widget toCenter() => Center(
         child: this,
