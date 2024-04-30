@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qm_dart_ex/qm_theme.dart';
 
 // enum StringType {
 //   normal,
@@ -18,34 +19,34 @@ class StringWrap {
 }
 
 extension StringEx on String {
-  Widget toText(
-          {Key? key,
-          Color color = const Color(0xff333333),
-          double fontSize = 16,
-          double? height = 1.4,
-          TextAlign? textAlign,
-          double? textScaleFactor,
-          TextDecoration? decoration,
-          int? maxLines,
-          TextOverflow overflow = TextOverflow.ellipsis,
-          FontWeight fontWeight = FontWeight.normal,
-          String? fontFamily,
-          TextStyle? style}) =>
+  Widget toText({
+    Key? key,
+    Color? color,
+    double? fontSize,
+    double? height,
+    TextAlign? textAlign,
+    TextDecoration? decoration,
+    int? maxLines,
+    TextOverflow? overflow,
+    FontWeight? fontWeight,
+    String? fontFamily,
+    TextStyle? style,
+  }) =>
       Text(
         this,
         key: key,
         textAlign: textAlign,
         maxLines: maxLines,
         overflow: overflow,
-        textScaleFactor: textScaleFactor,
         style: style ??
             TextStyle(
-                decoration: decoration ?? TextDecoration.none,
-                color: color,
-                fontSize: fontSize,
-                fontWeight: fontWeight,
-                fontFamily: fontFamily,
-                height: height),
+              decoration: decoration,
+              color: color,
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+              fontFamily: fontFamily,
+              height: height ?? QMTheme.data.textHeight,
+            ),
       );
   Widget toAssetImage({
     double? width,
@@ -58,6 +59,5 @@ extension StringEx on String {
         height: height,
         fit: fit ?? BoxFit.cover,
       );
-  StringWrap toStringWrap({Widget Function(StringWrap)? builder}) =>
-      StringWrap(this, builder: builder);
+  StringWrap toStringWrap({Widget Function(StringWrap)? builder}) => StringWrap(this, builder: builder);
 }

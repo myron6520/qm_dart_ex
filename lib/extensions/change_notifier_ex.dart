@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 
 class ChangeNotifierWidget extends StatefulWidget {
   final ChangeNotifier changeNotifier;
-  final Widget Function() builder;
-  final Future<void> Function()? onChanged;
-  const ChangeNotifierWidget(
-      {super.key,
-      required this.changeNotifier,
-      required this.builder,
-      this.onChanged});
+  final Widget Function(ChangeNotifier changeNotifier) builder;
+  final Future<void> Function(ChangeNotifier changeNotifier)? onChanged;
+  const ChangeNotifierWidget({super.key, required this.changeNotifier, required this.builder, this.onChanged});
 
   @override
   State<ChangeNotifierWidget> createState() => _ChangeNotifierWidgetState();
@@ -16,7 +12,7 @@ class ChangeNotifierWidget extends StatefulWidget {
 
 class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget> {
   @override
-  Widget build(BuildContext context) => widget.builder.call();
+  Widget build(BuildContext context) => widget.builder.call(widget.changeNotifier);
   @override
   void initState() {
     super.initState();
@@ -25,7 +21,7 @@ class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget> {
 
   void _update() async {
     if (widget.onChanged != null) {
-      await widget.onChanged!.call();
+      await widget.onChanged!.call(widget.changeNotifier);
     }
     setState(() {});
   }
@@ -38,8 +34,10 @@ class _ChangeNotifierWidgetState extends State<ChangeNotifierWidget> {
 }
 
 extension ChangeNotifierEx on ChangeNotifier {
-  Widget toWidget(Widget Function() builder,
-          {Future<void> Function()? onChanged}) =>
+  Widget toWidget(
+    Widget Function(ChangeNotifier changeNotifier) builder, {
+    Future<void> Function(ChangeNotifier changeNotifier)? onChanged,
+  }) =>
       ChangeNotifierWidget(
         builder: builder,
         changeNotifier: this,
@@ -48,7 +46,12 @@ extension ChangeNotifierEx on ChangeNotifier {
 }
 
 extension WidgetExApplyChangeNotifier on Widget {
-  Widget applyChangeNotifier(ChangeNotifier changeNotifier,
-          {Future<void> Function()? onChanged}) =>
-      changeNotifier.toWidget(() => this, onChanged: onChanged);
+  Widget applyChangeNotifier(
+    ChangeNotifier changeNotifier, {
+    Future<void> Function(ChangeNotifier changeNotifier)? onChanged,
+  }) =>
+      changeNotifier.toWidget(
+        (changeNotifier) => this,
+        onChanged: onChanged,
+      );
 }
