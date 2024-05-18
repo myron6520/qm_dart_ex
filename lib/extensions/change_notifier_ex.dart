@@ -39,6 +39,7 @@ extension ChangeNotifierEx on ChangeNotifier {
     Future<void> Function(ChangeNotifier changeNotifier)? onChanged,
   }) =>
       ChangeNotifierWidget(
+        key: ValueKey(this),
         builder: builder,
         changeNotifier: this,
         onChanged: onChanged,
