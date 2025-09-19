@@ -59,5 +59,41 @@ extension StringEx on String {
         height: height,
         fit: fit ?? BoxFit.cover,
       );
-  StringWrap toStringWrap({Widget Function(StringWrap)? builder}) => StringWrap(this, builder: builder);
+  StringWrap toStringWrap({Widget Function(StringWrap)? builder}) =>
+      StringWrap(this, builder: builder);
+  Widget toRichText({
+    Key? key,
+    Color? color,
+    double? fontSize,
+    double? height,
+    bool softWrap = false,
+    TextAlign textAlign = TextAlign.start,
+    TextDecoration? decoration,
+    int? maxLines,
+    textScaler: TextScaler.noScaling,
+    TextOverflow overflow = TextOverflow.visible,
+    FontWeight? fontWeight,
+    String? fontFamily,
+    TextStyle? style,
+  }) =>
+      RichText(
+        key: key,
+        textAlign: textAlign,
+        maxLines: maxLines,
+        overflow: overflow,
+        softWrap: softWrap,
+        textScaler: textScaler,
+        text: TextSpan(
+          text: this,
+          style: style ??
+              TextStyle(
+                decoration: decoration,
+                color: color,
+                fontSize: fontSize,
+                fontWeight: fontWeight,
+                fontFamily: fontFamily,
+                height: height ?? QMTheme.data.textHeight,
+              ),
+        ),
+      );
 }
