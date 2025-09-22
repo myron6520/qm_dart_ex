@@ -52,9 +52,11 @@ extension StringEx on String {
     double? width,
     double? height,
     BoxFit? fit,
+    String? package,
   }) =>
       Image.asset(
         this,
+        package: package,
         width: width,
         height: height,
         fit: fit ?? BoxFit.cover,
