@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qm_dart_ex/qm_dart_ex.dart';
+import 'package:get/get.dart';
 
 extension WidgetEx on Widget {
   Widget onClick({
@@ -125,4 +126,5 @@ extension WidgetEx on Widget {
   Widget get flexible => Flexible(child: this);
   Widget willPopScope(Future<bool> Function() onWillPop) => WillPopScope(child: this, onWillPop: onWillPop);
   Widget applyCondition(bool condition, {Widget? falseWidget, Widget Function()? falseBuilder}) => condition.toWidget(() => this, falseWidget: falseWidget, falseBuilder: falseBuilder);
+  Widget obx()=> Obx(()=> this);
 }
