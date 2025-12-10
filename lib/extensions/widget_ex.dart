@@ -90,10 +90,11 @@ extension WidgetEx on Widget {
         children: [this],
       );
   Widget toSafe({bool left = true, bool top = true, bool right = true, bool bottom = true}) => SafeArea(child: this, left: left, right: right, top: top, bottom: bottom);
-  Widget toScrollView({Axis scrollDirection = Axis.vertical, Clip clipBehavior = Clip.hardEdge, ScrollPhysics? physics}) => SingleChildScrollView(
+  Widget toScrollView({ScrollController? scrollerController,Axis scrollDirection = Axis.vertical, Clip clipBehavior = Clip.hardEdge, ScrollPhysics? physics}) => SingleChildScrollView(
         physics: physics,
         scrollDirection: scrollDirection,
         clipBehavior: clipBehavior,
+        controller: scrollerController,
         child: this,
       );
   Widget applyUnconstrainedBox() => UnconstrainedBox(child: this);
