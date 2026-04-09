@@ -158,7 +158,8 @@ extension WidgetEx on Widget {
       );
   Widget applyTip(String tip) => Tooltip(message: tip, child: this);
   Widget get expanded => Expanded(child: this);
-  Widget toExpanded({int flex = 1}) => Expanded(child: this, flex: flex);
+  Widget toExpanded({int flex = 1, bool condition = true}) =>
+      condition ? Expanded(child: this, flex: flex) : this;
   Widget get flexible => Flexible(child: this);
   Widget willPopScope(Future<bool> Function() onWillPop) =>
       WillPopScope(child: this, onWillPop: onWillPop);
