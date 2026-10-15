@@ -113,12 +113,15 @@ extension WidgetEx on Widget {
           {ScrollController? scrollerController,
           Axis scrollDirection = Axis.vertical,
           Clip clipBehavior = Clip.hardEdge,
-          ScrollPhysics? physics}) =>
+          ScrollPhysics? physics,
+          ScrollViewKeyboardDismissBehavior keyboardDismissBehavior =
+              ScrollViewKeyboardDismissBehavior.manual}) =>
       SingleChildScrollView(
         physics: physics,
         scrollDirection: scrollDirection,
         clipBehavior: clipBehavior,
         controller: scrollerController,
+        keyboardDismissBehavior: keyboardDismissBehavior,
         child: this,
       );
   Widget applyUnconstrainedBox() => UnconstrainedBox(child: this);
